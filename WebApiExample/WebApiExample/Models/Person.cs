@@ -18,11 +18,6 @@ namespace WebApiExample.Models
             Age = age;
         }
 
-        public Person(string name, short? age, ICollection<Phone> phone) : this(name, age)
-        {
-            Phone = phone;
-        }
-
         public long Id { get; set; }
         [StringLength(50)]
         public string Name { get; set; }
