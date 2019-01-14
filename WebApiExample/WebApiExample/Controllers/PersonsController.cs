@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApiExample.Models;
+using WebApiExample.Repositories;
 
 namespace WebApiExample.Controllers
 {
@@ -12,24 +13,33 @@ namespace WebApiExample.Controllers
     [ApiController]
     public class PersonsController : ControllerBase
     {
-        // GET api/values
-        [HttpGet]
-        public ActionResult GetPersons()
-        {
-            var users = new List<Person>
-            {
-                new Person("James", 45),
-                new Person("Lisa", 65),
+        private readonly IPersonRepository _personRepository;
 
-            };
-            return new JsonResult(users);
+        public PersonsController(IPersonRepository personRepository)
+        {
+            _personRepository = personRepository;
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        // GET api/persons
+        [HttpGet]
+        public ActionResult<List<Person>> GetPersons()
         {
-            return "value AB";
+            //var users = new List<Person>
+            //{
+            //    new Person("James", 45),
+            //    new Person("Lisa", 65),
+
+            //};
+            var persons = _personRepository.Read();
+            return new JsonResult(persons);
+        }
+
+        // GET api/persons/5
+        [HttpGet("{id}")]
+        public ActionResult<Person> Get(int id)
+        {
+            var person = _personRepository.Read(id);
+            return new JsonResult(person);
         }
     }
 }
