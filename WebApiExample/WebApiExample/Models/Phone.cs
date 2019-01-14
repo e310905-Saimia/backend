@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace WebApiExample.Models
 {
@@ -14,7 +15,7 @@ namespace WebApiExample.Models
         public long? PersonId { get; set; }
 
         [ForeignKey("PersonId")]
-        [InverseProperty("Phone")]
+        [InverseProperty("Phone")]        
         public Person Person { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace WebApiExample.Models
 {
@@ -23,7 +24,7 @@ namespace WebApiExample.Models
         public string Name { get; set; }
         public short? Age { get; set; }
 
-        [InverseProperty("Person")]
+        [InverseProperty("Person")]        
         public ICollection<Phone> Phone { get; set; }
     }
 }

@@ -28,6 +28,10 @@ namespace WebApiExample
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IPersonRepository, PersonRepository>();
+            
+            // ignore json serialization
+            services.AddMvc().AddJsonOptions(j =>
+                j.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddDbContext<PersondbContext>(opt =>
                 {
                     opt.UseSqlServer(Configuration.GetConnectionString("LocalPersonDBContext"));
