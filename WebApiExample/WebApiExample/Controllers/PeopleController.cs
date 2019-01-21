@@ -51,6 +51,7 @@ namespace WebApiExample.Controllers
             if (id != person.Id)
             {
                 return BadRequest();
+                
             }
 
             _context.Entry(person).State = EntityState.Modified;

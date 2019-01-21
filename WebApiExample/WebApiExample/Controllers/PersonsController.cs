@@ -20,26 +20,43 @@ namespace WebApiExample.Controllers
             _personRepository = personRepository;
         }
 
-        // GET api/persons
+        // GET: api/persons
         [HttpGet]
         public ActionResult<List<Person>> GetPersons()
         {
-            //var users = new List<Person>
-            //{
-            //    new Person("James", 45),
-            //    new Person("Lisa", 65),
-
-            //};
-            var persons = _personRepository.Read();
-            return new JsonResult(persons);
+            return new JsonResult(_personRepository.Read());
         }
 
-        // GET api/persons/5
+        // GET: api/persons/5
         [HttpGet("{id}")]
         public ActionResult<Person> Get(int id)
         {
-            var person = _personRepository.Read(id);
-            return new JsonResult(person);
+            return new JsonResult(_personRepository.Read(id));
+        }
+
+
+       //POST:api/persons
+        [HttpPost]
+        public ActionResult<Person> Post(Person person)
+        {
+            var newPerson = _personRepository.Create(person);
+            return newPerson;
+        }
+        
+       //PUT:api/persons/5
+        [HttpPut("{id}")]
+        public ActionResult<Person> Put(int id, Person person)
+        {
+            var updatedPerson = _personRepository.Update(person);
+            return updatedPerson;
+        }
+
+        //DELETE:api/persons/5
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        { 
+            _personRepository.Delete(id);
+            return new NoContentResult();
         }
     }
 }
