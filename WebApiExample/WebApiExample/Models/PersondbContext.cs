@@ -23,15 +23,19 @@ namespace WebApiExample.Models
 //            if (!optionsBuilder.IsConfigured)
 //            {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseSqlServer("Data Source=dko-s010a-016\\sqlexpress;Initial Catalog=PersonDB;Integrated Security=True");
+//                optionsBuilder.UseSqlServer("Data Source=DKO-S010A-016\\SQLEXPRESS;Initial Catalog=PersonDB;Integrated Security=True");
 //            }
 //        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
+
             modelBuilder.Entity<Person>(entity =>
             {
                 entity.Property(e => e.Name).IsUnicode(false);
+
+                entity.Property(e => e.Psw).IsUnicode(false);
             });
 
             modelBuilder.Entity<Phone>(entity =>
@@ -42,7 +46,7 @@ namespace WebApiExample.Models
                     .WithMany(p => p.Phone)
                     .HasForeignKey(d => d.PersonId)
                     .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_Phone_Person");
+                    .HasConstraintName("FK_Phone_Person1");
             });
 
             OnModelCreatingPartial(modelBuilder);

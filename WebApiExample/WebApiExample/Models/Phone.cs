@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Newtonsoft.Json;
 
 namespace WebApiExample.Models
 {
@@ -10,12 +9,12 @@ namespace WebApiExample.Models
     {
         public long Id { get; set; }
         public string Type { get; set; }
-        [StringLength(10)]
+        [StringLength(50)]
         public string Number { get; set; }
         public long? PersonId { get; set; }
 
         [ForeignKey("PersonId")]
-        [InverseProperty("Phone")]        
-        public Person Person { get; set; }
+        [InverseProperty("Phone")]
+        public virtual Person Person { get; set; }
     }
 }

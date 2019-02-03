@@ -29,6 +29,7 @@ namespace WebApiExample.Repositories
         {
             //SELECT * FROM PERSON;
             return _context.Person
+                .AsNoTracking()
                 .Include(p => p.Phone)
                 .ToList();
 
@@ -46,7 +47,8 @@ namespace WebApiExample.Repositories
             //WHERE PERSON.ID={id};
 
             return _context.Person
-                .Include(p=>p.Phone)
+                .AsNoTracking()
+                .Include(p=>p.Phone)                
                 .FirstOrDefault(p => p.Id == id);
         }
 
