@@ -22,6 +22,6 @@ namespace WebApiTask1.Models
 
         [ForeignKey("PersonId")]
         [InverseProperty("Phone")]
-        public virtual Person Person { get; set; }
+        public virtual Person Person { get; set; }        
     }
 }

@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebApiTask1.Models;
+using WebApiTask1.Repositories;
+using WebApiTask1.Services;
 
 namespace WebApiTask1
 {
@@ -27,8 +29,9 @@ namespace WebApiTask1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PersondbContext>(opt =>
-            opt.UseSqlServer(Configuration.GetConnectionString("LocalPersonDbContext")));
+            services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddDbContext<PersondbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("LocalPersonDbContext")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
