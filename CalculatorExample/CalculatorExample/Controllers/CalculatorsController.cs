@@ -22,11 +22,12 @@ namespace CalculatorExample.Controllers
 
         // GET api/calculators
         [HttpGet]
-        //public ActionResult Sum(int x, int y)
-        //{
-        //    return new JsonResult(_calculator.Sum(x,y));
-        //}
-        public ActionResult Sum(Calculator calculator)
+        public ActionResult Sum(int x, int y)
+        {
+            return new JsonResult(_calculator.Sum(x, y));
+        }
+
+        public ActionResult SumObj(Calculator calculator)
         {
             return new JsonResult(_calculator.Sum(calculator));
         }

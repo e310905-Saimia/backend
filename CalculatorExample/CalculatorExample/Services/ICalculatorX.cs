@@ -9,7 +9,7 @@ namespace CalculatorExample.Services
     public interface ICalculatorX
     {
         Calculator Sum(int x, int y);
-        Calculator SumObj(Calculator calculator);
+        Calculator Sum(Calculator calculator);
         Calculator Multiplication(Calculator calculator);        
     }
 }
