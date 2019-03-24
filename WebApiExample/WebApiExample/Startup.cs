@@ -39,12 +39,12 @@ namespace WebApiExample
             );
 
             // Cors 
-            //services.AddCors(options =>
-            //{
-            //    // Todo: change what erery needed in real server
-            //    options.AddPolicy("CorsPolicy", builder =>
-            //        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
-            //});
+            services.AddCors(options =>
+            {
+                // Todo: change what erery needed in real server
+                options.AddPolicy("CorsPolicy", builder =>
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+            });
             // ignore json serialization
             services.AddMvc().AddJsonOptions(json =>
                 json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -60,7 +60,7 @@ namespace WebApiExample
                 app.UseDeveloperExceptionPage();
             }
             // Cors
-            //app.UseCors("CorsPolicy");
+            app.UseCors("CorsPolicy");
 
             // keep this last
             app.UseMvc();
