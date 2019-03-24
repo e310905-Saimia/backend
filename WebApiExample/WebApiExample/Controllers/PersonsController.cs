@@ -10,7 +10,7 @@ using WebApiExample.Services;
 
 namespace WebApiExample.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/persons")]
     [ApiController]
     public class PersonsController : ControllerBase
     {
@@ -25,40 +25,84 @@ namespace WebApiExample.Controllers
 
 
         // GET: api/persons
+        //[HttpGet]
+        //public ActionResult Testi()
+        //{            
+        //        return NotFound();
+        //    //return Ok();
+        //}
+
+        //public bool TestiReturnTrue()
+        //{
+        //    return true;
+        //    //return Ok();
+        //}
+
         [HttpGet]
         public ActionResult<List<Person>> GetPersons()
         {
-            return new JsonResult(_personService.Read());
+            var persons = _personService.Read();
+
+            if (persons == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new JsonResult(persons));
+            
         }
 
         // GET: api/persons/5
         [HttpGet("{id}")]
         public ActionResult<Person> Get(int id)
         {
-            return new JsonResult(_personService.Read(id));
+            var person = _personService.Read(id);
+            if (person == null)
+            {
+                return NotFound();
+            }
+            return Ok(new JsonResult(_personService.Read(id)));
         }
 
 
-       //POST:api/persons
+        //POST:api/persons
         [HttpPost]
         public ActionResult<Person> Post(Person person)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var newPerson = _personService.Create(person);
-            return newPerson;
+            if (newPerson == null)
+                return NoContent();
+
+            return Ok(new JsonResult(newPerson));
         }
-        
-       //PUT:api/persons/5
+
+        //PUT:api/persons/5
         [HttpPut("{id}")]
         public ActionResult<Person> Put(int id, Person person)
         {
-            var updatedPerson = _personService.Update(id,person);
-            return updatedPerson;
+
+            try
+            {
+                var updatedPerson = _personService.Update(id, person);
+                return updatedPerson;
+            }
+            catch
+            {
+                return NotFound();
+            }
+
         }
 
         //DELETE:api/persons/5
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
-        { 
+        {
+
             _personService.Delete(id);
             return new NoContentResult();
         }

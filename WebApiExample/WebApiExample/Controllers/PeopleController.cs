@@ -79,6 +79,10 @@ namespace WebApiExample.Controllers
         [HttpPost]
         public async Task<ActionResult<Person>> PostPerson(Person person)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             _context.Person.Add(person);
             await _context.SaveChangesAsync();
 
