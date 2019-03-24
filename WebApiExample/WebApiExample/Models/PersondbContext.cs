@@ -46,7 +46,7 @@ namespace WebApiExample.Models
                     .WithMany(p => p.Phone)
                     .HasForeignKey(d => d.PersonId)
                     .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_Phone_Person1");
+                    .HasConstraintName("FK_Phone_Person");
             });
 
             OnModelCreatingPartial(modelBuilder);

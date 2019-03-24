@@ -15,7 +15,7 @@ namespace WebApiExample.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            string psw = "HelloWorld";
+            string psw = "HelloWorldXX";
             string salt = "Jouni";
             var secretWord = PasswordHash.HashPassword(psw, salt);
             return new string[] { psw, secretWord };
