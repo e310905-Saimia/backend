@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using WebApiExample.Models;
 using WebApiExample.Repositories;
 using WebApiExample.Utilities;
+
 
 namespace WebApiExample.Services
 {
@@ -15,6 +18,10 @@ namespace WebApiExample.Services
         public PersonService(IPersonRepository personRepository)
         {
             _personRepository = personRepository;
+        }
+
+        public PersonService()
+        {
         }
 
         public Person Create(Person person)
@@ -37,7 +44,7 @@ namespace WebApiExample.Services
         {
             var savedPerson = _personRepository.Read(id);
             if(savedPerson==null)
-                throw new Exception("Person not found!");
+                throw new Exception(StatusCodes.Status404NotFound.ToString());
             
             return _personRepository.Update(person);
             
